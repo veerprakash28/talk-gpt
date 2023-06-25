@@ -38,6 +38,7 @@ function playTextToSpeech(text) {
 }
 
 function stopTextToSpeech() {
+  console.log("is speaking: ", speechSynthesis.speaking);
   speechSynthesis.resume();
   speechSynthesis.cancel();
 }
