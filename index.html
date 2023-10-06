@@ -1,36 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Welcome to TalkGPT</title>
-
     <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <section>
-      <span
-        id="boot-icon"
-        class="bi bi-chat"
-        style="font-size: 10rem; color: rgb(0, 128, 55); opacity: 0.7"
-      ></span>
-      <h1>Welcome to TalkGPT</h1>
-      <p>Available in Chrome Only | Veer Prakash</p>
+    <link rel="stylesheet" href="chat-styles.css" />
+   
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css"
+rel="stylesheet"
+/>
 
-      <div class="container">
-        <div class="loader lds-ellipsis">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+</head>
+<body>
+    <section>
+        <span
+            id="boot-icon"
+            class="bi bi-chat"
+            style="font-size: 10rem; color: rgb(0, 128, 55); opacity: 0.7"
+        ></span>
+        <h1>Welcome to TalkGPT</h1>
+        <p>Available in Chrome Only | Veer Prakash</p>
+
+        <div class="container">
+            <div class="loader lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="texts">
+                <p>Welcome to TalkGPT, Speak and Interact</p>
+            </div>
         </div>
-        <div class="texts">
-          <p>Welcome to TalkGPT, Speak and Interact</p>
+        <!-- Loader -->
+
+        <!-- Add a form element for user input and a submit button -->
+        <div class="chat-interface">
+            <form id="chat-form">
+                <input type="text" id="user-input" placeholder="Type your message..." />
+                <button type="submit" id="submit-button">Send</button>
+            </form>
+            <span id="voice-icon" class="bi bi-mic"></span>
+            <div id="chat-output"></div>
         </div>
-      </div>
-      <!-- Loader -->
     </section>
 
     <script src="main.js" type="module"></script>
-  </body>
+</body>
 </html>
