@@ -5,10 +5,9 @@ const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
 
 // Speech Recognition Setup
-window.speechRecognition =
-  window.speechRecognition || window.webkitSpeechRecognition;
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-const recognition = new window.speechRecognition();
+const recognition = new window.SpeechRecognition();
 recognition.interimResults = true;
 
 // Function to fetch response from ChatGPT
