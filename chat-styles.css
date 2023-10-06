@@ -1,0 +1,47 @@
+/* chat-styles.css */
+/* Chat Interface Styles */
+.chat-interface {
+    position: fixed;
+    bottom: 0;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+    background-color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 80%; /* Adjust the width as needed */
+    max-width: 600px; /* Adjust the maximum width as needed */
+  }
+  
+  /* Chat Input Styles */
+  #user-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+  }
+  
+  /* Chat Button Styles */
+  #submit-button {
+    background-color: #00a67e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+  }
+  
+  /* Voice Icon Styles */
+  #voice-icon {
+    font-size: 24px;
+    color: #00a67e;
+    cursor: pointer;
+  }
+  
