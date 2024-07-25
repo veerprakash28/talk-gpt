@@ -5,6 +5,8 @@
 - Talk and interact with GPT
 - No contact app only speak and hear and interact
 
+(Youtube) Live Site Working Demo: https://youtu.be/dM8aqY9MJsM
+
 Live Site Link: https://veerprakash28.github.io/talk-gpt/
 
 Backend Server Repo: https://github.com/veerprakash28/talk-gpt-server
