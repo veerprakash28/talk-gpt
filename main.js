@@ -1,74 +1,71 @@
+// DOM Elements
 const texts = document.querySelector(".texts");
 const loader = document.querySelector(".loader");
+const chatForm = document.getElementById("chat-form");
+const userInput = document.getElementById("user-input");
 
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+// Speech Recognition Setup
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-if (!SpeechRecognition) {
-  console.error('SpeechRecognition is not supported in this browser.');
-} else {
-  const recognition = new SpeechRecognition();
-  recognition.interimResults = true;
+const recognition = new window.SpeechRecognition();
+recognition.interimResults = true;
 
-  let p = document.createElement("p");
-
-  // Function to fetch response from ChatGPT
-  const ENDPOINT = 
+// Function to fetch response from ChatGPT
+const ENDPOINT =
   "https://talk-gpt-server-nw6c.onrender.com/talkgpt/getGPTResponse" ||
   "http://localhost:3002/talkgpt/getGPTResponse";
-  const gptResponse = async (prompt) => {
-    try {
-      const response = await fetch(ENDPOINT, {
-        method: "POST",
-        body: JSON.stringify({ prompt }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const output = await response.json();
-      const reply = output.data.replace(/\n/g, "");
-      return reply;
-    } catch (error) {
-      console.error('Error fetching GPT response:', error);
-      throw error;
-    }
-  };
 
-  // Functions for Text-to-Speech
+const getGPTResponse = async (prompt) => {
+  try {
+    const response = await fetch(ENDPOINT, {
+      method: "POST",
+      body: JSON.stringify({ prompt }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-  function playTextToSpeech(text) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 1;
-    speechSynthesis.speak(utterance);
+    const { data } = await response.json();
+    return data.replace(/\n/g, "").trim();
+  } catch (error) {
+    console.error("Error fetching GPT response:", error);
+    throw error;
   }
+};
 
-  function stopTextToSpeech() {
-    console.log("is speaking: ", speechSynthesis.speaking);
-    speechSynthesis.resume();
+// Text-to-Speech Functions
+const playTextToSpeech = (text) => {
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = 1;
+  speechSynthesis.speak(utterance);
+};
+
+const stopTextToSpeech = () => {
+  if (speechSynthesis.speaking) {
     speechSynthesis.cancel();
   }
+};
 
-  // Speech recognition event handling
-  recognition.addEventListener("result", async (e) => {
-    const text = Array.from(e.results)
-      .map((result) => result[0])
-      .map((result) => result.transcript)
-      .join("");
+// Event Listener for Speech Recognition
+recognition.addEventListener("result", async (e) => {
+  const text = Array.from(e.results)
+    .map((result) => result[0])
+    .map((result) => result.transcript)
+    .join("");
 
-    p.innerText = text;
-    texts.appendChild(p);
+  // Create a new paragraph for displaying user input
+  const userMessage = document.createElement("p");
+  userMessage.textContent = text;
+  texts.insertBefore(userMessage, texts.firstChild);
 
-    const firstChild = texts.firstChild;
-    texts.insertBefore(p, firstChild);
+  if (e.results[0].isFinal) {
+    try {
+      loader.classList.add("loading");
 
-    loader.classList.add("loading");
-    if (e.results[0].isFinal) {
       let reply = "";
 
-      p = document.createElement("p");
-      p.classList.add("replay");
-
-      if (text.includes("what is your name") ||
-        text.includes("what's your name")) {
+      // Check for specific queries
+      if (text.includes("what is your name") || text.includes("what's your name")) {
         reply = "My name is TalkGPT";
       } else if (text.includes("clear the chat")) {
         texts.innerHTML = "";
@@ -76,36 +73,77 @@ if (!SpeechRecognition) {
       } else if (text.includes("who is your owner")) {
         reply = "Veer Prakash";
       } else {
-        try {
-          reply = await gptResponse(text);
-        } catch (error) {
-          p.classList.remove("replay");
-          p.classList.add("error");
-          reply = "OOPS! Something went wrong. Maybe the server is down!";
-        }
-        console.log("Reply: ", reply);
+        // Get response from ChatGPT
+        reply = await getGPTResponse(text);
       }
 
       loader.classList.remove("loading");
 
+      // Play text-to-speech for the response
       stopTextToSpeech();
       playTextToSpeech(reply);
 
-      p.innerText = reply;
-      texts.appendChild(p);
-
-      const firstChild = texts.firstChild;
-      texts.insertBefore(p, firstChild);
-
-      p = document.createElement("p");
+      // Display the response in a new paragraph
+      const chatbotResponse = document.createElement("p");
+      chatbotResponse.classList.add("replay");
+      chatbotResponse.textContent = reply;
+      texts.insertBefore(chatbotResponse, texts.firstChild);
+    } catch (error) {
+      console.error("Error processing speech recognition:", error);
     }
 
-    console.log(text);
-  });
+    // Clear the user input field
+    userInput.value = "";
+  }
+});
 
-  recognition.addEventListener("end", () => {
-    recognition.start();
-  });
-
+recognition.addEventListener("end", () => {
   recognition.start();
-}
+});
+
+// Event Listener for form submission
+chatForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const userMessage = userInput.value.trim();
+  if (userMessage === "") {
+    return;
+  }
+
+  const userMessageElement = document.createElement("p");
+  userMessageElement.textContent = userMessage;
+  texts.insertBefore(userMessageElement, texts.firstChild);
+
+  try {
+    loader.classList.add("loading");
+    let reply = "";
+
+    if (userMessage.includes("what is your name") || userMessage.includes("what's your name")) {
+      reply = "My name is TalkGPT";
+    } else if (userMessage.includes("clear the chat")) {
+      texts.innerHTML = "";
+      reply = "Conversation cleared!";
+    } else if (userMessage.includes("who is your owner")) {
+      reply = "Veer Prakash";
+    } else {
+      reply = await getGPTResponse(userMessage);
+    }
+
+    loader.classList.remove("loading");
+
+    stopTextToSpeech();
+    playTextToSpeech(reply);
+
+    const chatbotResponse = document.createElement("p");
+    chatbotResponse.classList.add("replay");
+    chatbotResponse.textContent = reply;
+    texts.insertBefore(chatbotResponse, texts.firstChild);
+  } catch (error) {
+    console.error("Error processing form submission:", error);
+  }
+
+  userInput.value = "";
+});
+
+// Start speech recognition
+recognition.start();
