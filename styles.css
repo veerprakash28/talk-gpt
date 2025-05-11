@@ -39,6 +39,53 @@ section p {
   margin: 0 auto;
 }
 
+.bottom-input {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+  padding: 15px 0;
+  z-index: 10;
+}
+
+.bottom-input p {
+  text-align: center;
+  color: #9d9d9d;
+  margin-bottom: 10px;
+  font-size: 0.7rem;
+}
+
+.text-input-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#manualInput {
+  padding: 10px;
+  width: 500px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#sendBtn {
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: #00a67e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+#sendBtn:hover {
+  background-color: #00722c;
+}
+
 .texts p {
   color: #141414;
   border-bottom: 1.5px solid #e7e7e7;

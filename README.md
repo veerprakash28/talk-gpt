@@ -5,6 +5,8 @@
 - Talk and interact with GPT
 - No contact app only speak and hear and interact
 
+- **Updates: Using Gemini AI for getting the Response**
+
 (Youtube) Live Site Working Demo: https://youtu.be/dM8aqY9MJsM
 
 Live Site Link: https://veerprakash28.github.io/talk-gpt/
@@ -20,7 +22,7 @@ For using the project, follow the following steps
 - Locate to the server folder: `cd server`
 - Run command `npm i` to install node_modules
 - Setup your .env file in server folder
-- Add a .env file and there add your `PORT` number and ChatGPT `apiKey`
+- Add a .env file and there add your `PORT` number and Gemini API Key `GEMINI_API_KEY`
 - Run `npm start` and your server will be running
   Your backend service is started
 
