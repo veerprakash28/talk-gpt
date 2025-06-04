@@ -3,48 +3,165 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to TalkGPT</title>
-
+    <title>TalkGPT - Voice Assistant</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <section>
-      <span
-        id="boot-icon"
-        class="bi bi-chat"
-        style="font-size: 10rem; color: rgb(0, 128, 55); opacity: 0.7"
-      ></span>
-      <h1>Welcome to TalkGPT</h1>
-      <p>Available in Chrome Only | Veer Prakash</p>
+    <div class="app">
+      <header class="header">
+        <div class="header-content">
+          <div class="logo">
+            <div class="mic-icon">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"
+                ></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="22"></line>
+              </svg>
+            </div>
+            <div class="title">
+              <h1>TalkGPT</h1>
+              <p>Voice-enabled AI assistant | Available in Chrome Only</p>
+            </div>
+          </div>
+          <button class="clear-btn" title="Clear conversation">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 6h18"></path>
+              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+            </svg>
+            Clear
+          </button>
+        </div>
+      </header>
 
-      <div class="container">
-        <div class="loader lds-ellipsis">
+      <main class="chat-container">
+        <div class="welcome-screen">
+          <div class="welcome-icon">
+            <svg
+              width="64"
+              height="64"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"
+              ></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="22"></line>
+            </svg>
+          </div>
+          <h2>Welcome to TalkGPT</h2>
+          <p>
+            Start a conversation by clicking the microphone button or typing a
+            message below.
+          </p>
+        </div>
+
+        <div class="messages"></div>
+
+        <div class="loader">
           <div></div>
           <div></div>
           <div></div>
           <div></div>
         </div>
-        <div class="texts">
-          <p>Welcome to TalkGPT, Speak and Interact</p>
-        </div>
+      </main>
+
+      <footer class="input-area">
+        <form class="input-form">
+          <div class="input-wrapper">
+            <textarea placeholder="Ask anything..." rows="1"></textarea>
+            <button type="submit" class="send-btn" disabled>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+          <p class="input-hint">
+            Type your message (press Enter to send) or click the microphone
+            button for continuous voice input
+          </p>
+        </form>
+      </footer>
+
+      <div class="action-buttons">
+        <button class="action-btn voice-stop-btn" title="Stop speaking">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+        <button class="action-btn mic-btn" title="Start continuous listening">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"
+            ></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="22"></line>
+          </svg>
+        </button>
       </div>
+    </div>
 
-      <div class="bottom-input">
-        <p>Want to chat instead? Type here.</p>
-        <div class="text-input-box">
-          <input
-            type="text"
-            id="manualInput"
-            placeholder="Ask anything..."
-            autocomplete="off"
-          />
-          <button id="sendBtn">Send</button>
-        </div>
-      </div>
-
-      <!-- Loader -->
-    </section>
-
-    <script src="main.js" type="module"></script>
+    <script src="main.js"></script>
   </body>
 </html>
